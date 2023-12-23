@@ -1,8 +1,11 @@
 'use client';
 
-import * as z from 'zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { Modal } from "@/components/ui/modal";
@@ -19,6 +22,8 @@ export const StoreModal = () => {
 
     const storeModal = useStoreModal();
 
+    const [loading, setLoading] = useState(false);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -29,6 +34,20 @@ export const StoreModal = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log(values);
         // TODO: create store
+        try {
+            setLoading(true);
+            
+            const res = await axios.post('/api/stores', values);
+
+            window.location.assign(`/${res.data.id}`);      // it will do complete refresh of entire page.
+
+            // redirect(`/${res.data.id}`);     // if am using this statement to redirect it gives me an error and not redirecting!     why??
+
+        } catch (err) {
+            toast.error('Something went wrong!');
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -43,14 +62,14 @@ export const StoreModal = () => {
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
-                                        <Input placeholder='E-Commerce' {...field} />
+                                        <Input disabled={loading} placeholder='E-Commerce' {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )} />
                             <div className='pt-6 space-x-2 flex items-center justify-end w-full'>
-                                <Button variant="outline" onClick={storeModal.onClose} >Cancel</Button>
-                                <Button type="submit" >Continue</Button>
+                                <Button disabled={loading} variant="outline" onClick={storeModal.onClose} >Cancel</Button>
+                                <Button disabled={loading} type="submit" >Continue</Button>
                             </div>
                         </form>
                     </Form>
