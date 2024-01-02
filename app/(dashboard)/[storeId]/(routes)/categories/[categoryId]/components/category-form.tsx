@@ -40,7 +40,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
 
     const title = initialData ? 'Edit category' : 'Create category';
     const description = initialData ? 'Edit a category' : 'Add a new category';
-    const toastMessage = initialData ? 'Category upadated.' : 'Category created.';
+    const toastMessage = initialData ? 'Category updated.' : 'Category created.';
     const action = initialData ? 'Save changes' : 'Create';
 
     const form = useForm<CategoryFormValues>({
@@ -72,16 +72,13 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
             setLoading(false);
         }
     };
-
+    
     const onDelete = async () => {
         try {
             setLoading(true);
             await axios.delete(`/api/${params.storeId}/categories/${params.categoryId}`);
             router.refresh();
-
-            // setting the existing store as current one.
-            router.push('/');
-
+            router.push(`/${params.storeId}/categories`);
             toast.success('Category deleted.');
         } catch (err) {
             toast.error('Make sure you removed all products using this category first.');
