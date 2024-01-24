@@ -3,7 +3,7 @@
 import { Plus } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
 
-import { Heading } from "@/components/ui/heading";
+import { Heading } from "@/components/ui/Heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
  
