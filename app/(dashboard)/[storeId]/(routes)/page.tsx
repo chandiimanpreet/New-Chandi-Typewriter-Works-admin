@@ -73,4 +73,5 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({
     );
 };
 
+
 export default DashboardPage;
