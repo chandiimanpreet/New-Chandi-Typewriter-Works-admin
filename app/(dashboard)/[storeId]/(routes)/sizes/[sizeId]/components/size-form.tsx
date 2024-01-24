@@ -12,7 +12,7 @@ import { useParams, useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Heading } from "@/components/ui/Heading";
+import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import ImageUpload from "@/components/ui/image-upload";
 import { AlertModal } from "@/components/modals/alert-modal";
