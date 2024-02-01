@@ -18,17 +18,6 @@ export const AlertModal: React.FC<AlertModalProps> = ({
     loading
 }) => {
 
-    // const [isMounted, setIsMounted] = useState(false);
-
-    // useEffect(() => {
-    //     setIsMounted(true);
-    // }, []);
-
-
-    // if (!isMounted) {
-    //     return null;
-    // }
-
     return (
 
         <Modal title="Are you sure?"

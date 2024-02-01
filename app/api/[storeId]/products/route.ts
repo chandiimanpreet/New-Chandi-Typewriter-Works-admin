@@ -13,6 +13,7 @@ export async function POST(req: Request,
         const {
             name,
             price,
+            quantity,
             categoryId,
             colorId,
             sizeId,
@@ -31,6 +32,10 @@ export async function POST(req: Request,
 
         if (!price) {
             return new NextResponse('Price is required', { status: 400 });
+        }
+
+        if (quantity !== 0 && !quantity) {
+            return new NextResponse('Quantity is required', { status: 400 });
         }
 
         if (!categoryId) {
@@ -68,6 +73,7 @@ export async function POST(req: Request,
             data: {
                 name,
                 price,
+                quantity,
                 categoryId,
                 sizeId,
                 colorId,

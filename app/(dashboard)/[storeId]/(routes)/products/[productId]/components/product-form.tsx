@@ -24,6 +24,7 @@ const formSchema = z.object({
     name: z.string().min(1),
     images: z.object({ url: z.string() }).array(),
     price: z.coerce.number().min(1),
+    quantity: z.coerce.number().min(0),
     categoryId: z.string().min(1),
     sizeId: z.string().min(1),
     colorId: z.string().min(1),
@@ -64,11 +65,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         resolver: zodResolver(formSchema),
         defaultValues: initialData ? {
             ...initialData,
-            price: parseFloat(String(initialData?.price))
+            price: parseFloat(String(initialData?.price)),
+            quantity: parseFloat(String(initialData?.quantity))
         } : {
             name: '',
             images: [],
             price: 0,
+            quantity: 0,
             categoryId: '',
             colorId: '',
             sizeId: '',
@@ -79,13 +82,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
     const onSubmit = async (data: ProductFormValues) => {
 
-        console.log(data);
-
+        
         try {
             setLoading(true);
             if (initialData) {
                 await axios.patch(`/api/${params.storeId}/products/${params.productId}`, data);
             } else {
+                console.log(data.quantity);
                 await axios.post(`/api/${params.storeId}/products`, data);
             }
             router.refresh();
@@ -169,6 +172,15 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 <FormLabel>Price</FormLabel>
                                 <FormControl>
                                     <Input type="number" disabled={loading} placeholder="9.99" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )} />
+                        <FormField name="quantity" control={form.control} render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Quantity</FormLabel>
+                                <FormControl>
+                                    <Input type="number" disabled={loading} placeholder="1" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
