@@ -21,6 +21,7 @@ export async function GET(
                 category: true,
                 color: true,
                 size: true,
+                gender: true,
             },
         });
 
@@ -49,6 +50,7 @@ export async function PATCH(
             categoryId,
             colorId,
             sizeId,
+            genderId,
             images,
             isFeatured,
             isArchived
@@ -82,6 +84,10 @@ export async function PATCH(
             return new NextResponse('Size id is required', { status: 400 });
         }
 
+        if (!genderId) {
+            return new NextResponse('Gender id is required', { status: 400 });
+        }
+
         if (!images || !images.length) {
             return new NextResponse('Images are required', { status: 400 });
         }
@@ -112,6 +118,7 @@ export async function PATCH(
                 categoryId,
                 colorId,
                 sizeId,
+                genderId,
                 images: {
                     deleteMany: {},
                 },

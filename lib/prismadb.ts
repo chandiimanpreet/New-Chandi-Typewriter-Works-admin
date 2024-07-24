@@ -12,3 +12,5 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default prismadb;
+
+// mysql - h "viaduct.proxy.rlwy.net" - u root  --database railway -p < all_schema.sql
