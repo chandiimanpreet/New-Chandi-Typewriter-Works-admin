@@ -16,9 +16,6 @@ const ProductsPage = async ({ params }: {
         },
         include: {
             category: true,
-            size: true,
-            color: true,
-            gender: true,
         },
         orderBy: {
             createdAt: 'desc'
@@ -33,9 +30,6 @@ const ProductsPage = async ({ params }: {
         price: String(formatter.format(item.price.toNumber())),
         quantity: String(item.quantity.toNumber()),
         category: item.category.name,
-        size: item.size.name,
-        color: item.color.value,
-        gender: item.gender.value,
         createdAt: format(item.createdAt, 'MMMM do, yyyy')
     }))
 

@@ -19,9 +19,6 @@ export async function GET(
             include: {
                 images: true,
                 category: true,
-                color: true,
-                size: true,
-                gender: true,
             },
         });
 
@@ -48,9 +45,6 @@ export async function PATCH(
             price,
             quantity,
             categoryId,
-            colorId,
-            sizeId,
-            genderId,
             images,
             isFeatured,
             isArchived
@@ -74,18 +68,6 @@ export async function PATCH(
 
         if (!categoryId) {
             return new NextResponse('Category id is required', { status: 400 });
-        }
-
-        if (!colorId) {
-            return new NextResponse('Color id is required', { status: 400 });
-        }
-
-        if (!sizeId) {
-            return new NextResponse('Size id is required', { status: 400 });
-        }
-
-        if (!genderId) {
-            return new NextResponse('Gender id is required', { status: 400 });
         }
 
         if (!images || !images.length) {
@@ -116,9 +98,6 @@ export async function PATCH(
                 price,
                 quantity,
                 categoryId,
-                colorId,
-                sizeId,
-                genderId,
                 images: {
                     deleteMany: {},
                 },
